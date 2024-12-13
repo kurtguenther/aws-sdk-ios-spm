@@ -161,11 +161,11 @@ func createProducts() -> [Product] {
     } else {
         products = frameworks.map { framework -> Product in
             if depdenencyMap[framework]!.isEmpty {
-                return Product.library(name: framework, targets: [framework])
+                return Product.library(name: framework, type: .static, targets: [framework])
             }
             // If framework has dependencies, create a `<framework>-Target`
             // library that is used to link framework target with its dependencies
-            return Product.library(name: framework, targets: ["\(framework)-Target"])
+            return Product.library(name: framework, type: .static, targets: ["\(framework)-Target"])
         }
     }
     return products
